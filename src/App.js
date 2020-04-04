@@ -20,7 +20,7 @@ const movie = {
 
 function Image(props) {
   console.log(props);
-  return <img src={props.src} alt={props.alt} />;
+  return <img width="100%" src={props.src} alt={props.alt} />;
 }
 
 // function MovieItem(props) {
@@ -38,19 +38,58 @@ function Image(props) {
 // }
 
 class MovieItem extends React.Component {
+  constructor() {
+    super();
+
+    this.state = {
+      show: false,
+      liked: false
+    };
+  }
+
+  toggleOverview = () => {
+    this.setState({
+      show: !this.state.show
+    });
+  };
+
+  toggleLike = () => {
+    this.setState({
+      liked: !this.state.liked
+    });
+  };
+
   render() {
-    const {
-      data: { title, vote_average, backdrop_path, poster_path }
-    } = this.props;
+    const { data: {
+      title,
+      vote_average,
+      backdrop_path,
+      poster_path,
+      overview
+    } } = this.props;
     console.log(this);
     return (
-      <div>
+      <div style={{ width: "300px" }}>
         <Image
           src={`https://image.tmdb.org/t/p/w500${backdrop_path || poster_path}`}
           alt="title"
         />
         <p>{title}</p>
         <p>{vote_average}</p>
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <button type="button" onClick={this.toggleOverview}>
+            {this.state.show ? "hide" : "show"}
+          </button>
+          <button
+            type="button"
+            //style={{ background: this.state.liked ? "blue" : "white" }}
+            onClick={this.toggleLike}
+            className={`w100 ${this.state.liked ? "btn--like" : ""}`}
+          >
+            Like
+          </button>
+        </div>
+        {this.state.show === true ? <p>{overview}</p> : null}
       </div>
     );
   }
