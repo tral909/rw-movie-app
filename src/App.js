@@ -1,5 +1,6 @@
 import React from "react";
 import "./styles.css";
+import { moviesData } from "./moviesData";
 
 const movie = {
   vote_count: 4592,
@@ -69,7 +70,7 @@ class MovieItem extends React.Component {
     } } = this.props;
     console.log(this);
     return (
-      <div style={{ width: "300px" }}>
+      <div>
         <Image
           src={`https://image.tmdb.org/t/p/w500${backdrop_path || poster_path}`}
           alt="title"
@@ -95,10 +96,29 @@ class MovieItem extends React.Component {
   }
 }
 
+class MoviesList extends React.Component {
+  constructor() {
+    super();
+
+    this.state = {
+      movies: moviesData
+    }
+  }
+
+  render() {
+    return (
+        this.state.movies.map((movie) => {
+          return <p>{movie.title}</p>
+        })
+    )
+  }
+}
+
 export default function App() {
   return (
-    <div className="App">
+    <div className="App" style={{ width: "300px" }}>
       <MovieItem data={movie} />
+      <MoviesList />
     </div>
   );
 }
