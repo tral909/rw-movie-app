@@ -1,6 +1,7 @@
 import React from "react";
 import "./styles.css";
 import { moviesData } from "./moviesData";
+import MovieItem from "./MovieItem";
 
 const movie = {
   vote_count: 4592,
@@ -16,7 +17,7 @@ const movie = {
   adult: false,
   overview:
     "As the Avengers and their allies have continued to protect the world from threats too large for any one hero to handle, a new danger has emerged from the cosmic shadows: Thanos. A despot of intergalactic infamy, his goal is to collect all six Infinity Stones, artifacts of unimaginable power, and use them to inflict his twisted will on all of reality. Everything the Avengers have fought for has led up to this moment - the fate of Earth and existence itself has never been more uncertain.",
-  release_date: "2018-04-25"
+  release_date: "2018-04-25",
 };
 
 function Image(props) {
@@ -38,36 +39,32 @@ function Image(props) {
 //   );
 // }
 
-class MovieItem extends React.Component {
+class TestHeader extends React.Component {
   constructor() {
     super();
 
     this.state = {
       show: false,
-      liked: false
+      liked: false,
     };
   }
 
   toggleOverview = () => {
     this.setState({
-      show: !this.state.show
+      show: !this.state.show,
     });
   };
 
   toggleLike = () => {
     this.setState({
-      liked: !this.state.liked
+      liked: !this.state.liked,
     });
   };
 
   render() {
-    const { data: {
-      title,
-      vote_average,
-      backdrop_path,
-      poster_path,
-      overview
-    } } = this.props;
+    const {
+      data: { title, vote_average, backdrop_path, poster_path, overview },
+    } = this.props;
     console.log(this);
     return (
       <div>
@@ -101,23 +98,45 @@ class MoviesList extends React.Component {
     super();
 
     this.state = {
-      movies: moviesData
-    }
+      movies: moviesData,
+    };
+
+    //this.removeMovie = this.removeMovie.bind(this);
+  }
+
+  //removeMovie(movie) { или через arrow function
+  removeMovie = movie => {
+    const updateMovies = this.state.movies.filter(function(item) {
+      return item.id !== movie.id;
+    });
+
+    this.setState({
+      movies: updateMovies
+    })
   }
 
   render() {
-    return (
-        this.state.movies.map((movie) => {
-          return <p>{movie.title}</p>
-        })
-    )
+    return this.state.movies.map((movie) => {
+      return (
+      <div>
+        { this.state.movies.map(movie => {
+          return (
+            <MovieItem
+              key={movie.id}
+              movie={movie}
+              removeMovie={this.removeMovie}/>
+          )
+        }) }
+      </div>
+      );
+    });
   }
 }
 
 export default function App() {
   return (
     <div className="App" style={{ width: "300px" }}>
-      <MovieItem data={movie} />
+      <TestHeader key={movie.id} data={movie} />
       <MoviesList />
     </div>
   );
