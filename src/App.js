@@ -3,95 +3,7 @@ import "./styles.css";
 import { moviesData } from "./moviesData";
 import MovieItem from "./MovieItem";
 
-const movie = {
-  vote_count: 4592,
-  id: 299536,
-  video: false,
-  vote_average: 8.5,
-  title: "Avengers: Infinity War",
-  popularity: 160.36938,
-  poster_path: "/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg",
-  original_language: "en",
-  original_title: "Avengers: Infinity War",
-  backdrop_path: "/bOGkgRGdhrBYJSLpXaxhXVstddV.jpg",
-  adult: false,
-  overview:
-    "As the Avengers and their allies have continued to protect the world from threats too large for any one hero to handle, a new danger has emerged from the cosmic shadows: Thanos. A despot of intergalactic infamy, his goal is to collect all six Infinity Stones, artifacts of unimaginable power, and use them to inflict his twisted will on all of reality. Everything the Avengers have fought for has led up to this moment - the fate of Earth and existence itself has never been more uncertain.",
-  release_date: "2018-04-25",
-};
-
-function Image(props) {
-  console.log(props);
-  return <img width="100%" src={props.src} alt={props.alt} />;
-}
-
-// function MovieItem(props) {
-//   console.log(props);
-//   return (
-//     <div>
-//       <Image
-//         src={`https://image.tmdb.org/t/p/w500${backdrop_path || poster_path}`}
-//         alt="title"
-//       />
-//       <p>{title}</p>
-//       <p>{vote_average}</p>
-//     </div>
-//   );
-// }
-
-class TestHeader extends React.Component {
-  constructor() {
-    super();
-
-    this.state = {
-      show: false,
-      liked: false,
-    };
-  }
-
-  toggleOverview = () => {
-    this.setState({
-      show: !this.state.show,
-    });
-  };
-
-  toggleLike = () => {
-    this.setState({
-      liked: !this.state.liked,
-    });
-  };
-
-  render() {
-    const {
-      data: { title, vote_average, backdrop_path, poster_path, overview },
-    } = this.props;
-    console.log(this);
-    return (
-      <div>
-        <Image
-          src={`https://image.tmdb.org/t/p/w500${backdrop_path || poster_path}`}
-          alt="title"
-        />
-        <p>{title}</p>
-        <p>{vote_average}</p>
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <button type="button" onClick={this.toggleOverview}>
-            {this.state.show ? "hide" : "show"}
-          </button>
-          <button
-            type="button"
-            //style={{ background: this.state.liked ? "blue" : "white" }}
-            onClick={this.toggleLike}
-            className={`w100 ${this.state.liked ? "btn--like" : ""}`}
-          >
-            Like
-          </button>
-        </div>
-        {this.state.show === true ? <p>{overview}</p> : null}
-      </div>
-    );
-  }
-}
+// UI = fn(state, props)
 
 class MoviesList extends React.Component {
   constructor() {
@@ -99,6 +11,7 @@ class MoviesList extends React.Component {
 
     this.state = {
       movies: moviesData,
+      moviesWillWatch: [],
     };
 
     //this.removeMovie = this.removeMovie.bind(this);
@@ -106,38 +19,55 @@ class MoviesList extends React.Component {
 
   //removeMovie(movie) { или через arrow function
   removeMovie = movie => {
-    const updateMovies = this.state.movies.filter(function(item) {
+    const updateMovies = this.state.movies.filter(function (item) {
       return item.id !== movie.id;
     });
 
     this.setState({
-      movies: updateMovies
-    })
-  }
+      movies: updateMovies,
+    });
+  };
+
+  addMovieToWillWatch = movie => {
+    console.log(movie);
+    // const updateMovies = [...this.state.moviesWillWatch];
+    // updateMovies.push(movie); или
+
+    const updateMovies = [...this.state.moviesWillWatch, movie];
+
+    this.setState({
+      moviesWillWatch: updateMovies
+    });
+  };
 
   render() {
-    return this.state.movies.map((movie) => {
-      return (
-      <div>
-        { this.state.movies.map(movie => {
-          return (
-            <MovieItem
-              key={movie.id}
-              movie={movie}
-              removeMovie={this.removeMovie}/>
-          )
-        }) }
+    return (
+      <div className="container">
+        <div className="row">
+          <div className="col-9">
+            <div className="row">
+              {this.state.movies.map(movie => {
+                return (
+                  <div className="col-6 mb-4" key={movie.id}>
+                    <MovieItem
+                      movie={movie}
+                      removeMovie={this.removeMovie}
+                      addMovieToWillWatch={this.addMovieToWillWatch}
+                    />
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+          <div className="col-3">
+            <p>Will watch: {this.state.moviesWillWatch.length}</p>
+          </div>
+        </div>
       </div>
-      );
-    });
+    );
   }
 }
 
 export default function App() {
-  return (
-    <div className="App" style={{ width: "300px" }}>
-      <TestHeader key={movie.id} data={movie} />
-      <MoviesList />
-    </div>
-  );
+  return <MoviesList />;
 }
