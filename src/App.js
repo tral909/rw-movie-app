@@ -29,7 +29,6 @@ class MoviesList extends React.Component {
   };
 
   addMovieToWillWatch = movie => {
-    console.log(movie);
     // const updateMovies = [...this.state.moviesWillWatch];
     // updateMovies.push(movie); или
 
@@ -37,6 +36,16 @@ class MoviesList extends React.Component {
 
     this.setState({
       moviesWillWatch: updateMovies
+    });
+  };
+
+  removeMovieFromWillWatch = movie => {
+    const updateMoviesWillWatch = this.state.moviesWillWatch.filter(function (item) {
+      return item.id !== movie.id;
+    });
+
+    this.setState({
+      moviesWillWatch: updateMoviesWillWatch,
     });
   };
 
@@ -53,6 +62,7 @@ class MoviesList extends React.Component {
                       movie={movie}
                       removeMovie={this.removeMovie}
                       addMovieToWillWatch={this.addMovieToWillWatch}
+                      removeMovieFromWillWatch={this.removeMovieFromWillWatch}
                     />
                   </div>
                 );
