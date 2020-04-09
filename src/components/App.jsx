@@ -1,7 +1,8 @@
 import React from "react";
-import "./styles.css";
-import { moviesData } from "./moviesData";
+import "../styles.scss";
+//import { moviesData } from "../moviesData";
 import MovieItem from "./MovieItem";
+import { API_URL, API_KEY_3 } from "../utils/api";
 
 // UI = fn(state, props)
 
@@ -10,11 +11,35 @@ class MoviesList extends React.Component {
     super();
 
     this.state = {
-      movies: moviesData,
+      movies: [],//moviesData
       moviesWillWatch: [],
     };
 
     //this.removeMovie = this.removeMovie.bind(this);
+    console.log('constructor')
+  }
+
+  /*async*/ componentDidMount() {
+    //const _this = this
+    console.log('didmount')
+    fetch(`${API_URL}/discover/movie?api_key=${API_KEY_3}&sort_by=popularity.desc`).then(data => {
+      return data.json()
+    //}).then(function(resp) {
+    }).then(resp => {
+      console.log(resp)
+      this.setState({
+        movies: resp.results
+      })
+    })
+
+    //или так
+
+    // let promise = await fetch(`${API_URL}/discover/movie?api_key=${API_KEY_3}`);
+    // let json = await promise.json()
+    // //console.log(json);
+    // this.setState({
+    //   movies: json.results
+    // })
   }
 
   //removeMovie(movie) { или через arrow function
@@ -50,6 +75,7 @@ class MoviesList extends React.Component {
   };
 
   render() {
+    console.log('render')
     return (
       <div className="container">
         <div className="row">
