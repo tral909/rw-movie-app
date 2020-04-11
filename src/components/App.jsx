@@ -21,9 +21,24 @@ class MoviesList extends React.Component {
     console.log('constructor')
   }
 
-  /*async*/ componentDidMount() {
+  componentDidMount() {
     //const _this = this
-    console.log('didmount')
+    console.log('App didmount')
+
+    this.getMovies();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    console.log("App didupdate")
+    console.log("prev", prevProps, prevState)
+    console.log("this", this.props, this.state)
+    if (prevState.sort_by !== this.state.sort_by) {
+      this.getMovies();
+    }
+  }
+
+  /* async */ getMovies = () => {
+    //const _this = this
     fetch(`${API_URL}/discover/movie?api_key=${API_KEY_3}&sort_by=${this.state.sort_by}&`).then(data => {
       return data.json()
       //}).then(function(resp) {
@@ -83,7 +98,7 @@ class MoviesList extends React.Component {
   }
 
   render() {
-    console.log('render')
+    console.log('App render')
     return (
       <div className="container">
         <div className="row">

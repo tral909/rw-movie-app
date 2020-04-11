@@ -1,52 +1,70 @@
 import React from "react"
 
-const MovieTabs = (props) => {
-  const { sort_by, updateSortBy } = props;
-
-  const handleClick = value => {
-    return () => {
-      updateSortBy(value);
-    };
-  };
-
-  const getClassLink = value => {
-    return `nav-link ${sort_by === value ? "active" : ""}`;
+class MovieTabs extends React.Component {
+  componentWillReceiveProps(nextProps, nextState) {
+    console.log("willReceiveProps");
+    console.log("nextProps sort_by", nextProps.sort_by);
+    console.log("prevProps sort_by", this.props.sort_by);
   }
 
-  return (
-    <ul className="nav nav-pills">
-      <li className="nav-item">
-        <a
-          className={getClassLink("popularity.desc")}
-          onClick={handleClick("popularity.desc")}
-          href="#"
-        >
-          Popularity desc
+  shouldComponentUpdate(nextProps, nextState) {
+    if (nextProps.sort_by !== this.props.sort_by) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  render() {
+    const { sort_by, updateSortBy } = this.props;
+
+    const handleClick = value => {
+      return () => {
+        updateSortBy(value);
+      };
+    };
+
+    const getClassLink = value => {
+      return `nav-link ${sort_by === value ? "active" : ""}`;
+    }
+
+    console.log("MovieTabs render")
+
+    return (
+      <ul className="nav nav-pills">
+        <li className="nav-item">
+          <a
+            className={getClassLink("popularity.desc")}
+            onClick={handleClick("popularity.desc")}
+            href="#stub"
+          >
+            Popularity desc
         </a>
-      </li>
-      <li className="nav-item">
-        <a
-          className={getClassLink("revenue.desc")}
-          onClick={handleClick("revenue.desc")}
-          href="#"
-        >
-          Revenue desc
+        </li>
+        <li className="nav-item">
+          <a
+            className={getClassLink("revenue.desc")}
+            onClick={handleClick("revenue.desc")}
+            href="#stub"
+          >
+            Revenue desc
         </a>
-      </li>
-      <li className="nav-item">
-        <a
-          className={`nav-link ${
-            sort_by === "vote_average.desc" ? "active" : ""}`}
-          onClick={() => {
-            updateSortBy("vote_average.desc");
-          }}
-          href="#"
-        >
-          Vote average desc
+        </li>
+        <li className="nav-item">
+          <a
+            className={`nav-link ${
+              sort_by === "vote_average.desc" ? "active" : ""}`}
+            onClick={() => {
+              updateSortBy("vote_average.desc");
+            }}
+            href="#stub"
+          >
+            Vote average desc
         </a>
-      </li>
-    </ul>
-  )
+        </li>
+      </ul>
+    )
+  }
 }
 
 export default MovieTabs;
