@@ -1,4 +1,5 @@
 import React from "react"
+import cn from 'classnames'
 
 class MovieTabs extends React.Component {
   componentWillReceiveProps(nextProps, nextState) {
@@ -25,7 +26,10 @@ class MovieTabs extends React.Component {
     };
 
     const getClassLink = value => {
-      return `nav-link ${sort_by === value ? "active" : ""}`;
+      //return `nav-link ${sort_by === value ? "active" : ""}`;
+
+      // или используем бииблиотеку classnames
+      return cn("nav-link", {"active": sort_by === value});
     }
 
     console.log("MovieTabs render")

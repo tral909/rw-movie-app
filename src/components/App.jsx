@@ -3,7 +3,8 @@ import "../styles.scss";
 //import { moviesData } from "../moviesData";
 import MovieItem from "./MovieItem";
 import { API_URL, API_KEY_3 } from "../utils/api";
-import MovieTabs from "./MovieTabs"
+import MovieTabs from "./MovieTabs";
+import Pagination from "./Pagination";
 
 // UI = fn(state, props)
 
@@ -14,7 +15,9 @@ class MoviesList extends React.Component {
     this.state = {
       movies: [],//moviesData
       moviesWillWatch: [],
-      sort_by: "revenue.desc"
+      sort_by: "revenue.desc",
+      total_pages: 0,
+      page: 1
     };
 
     //this.removeMovie = this.removeMovie.bind(this);
@@ -39,12 +42,13 @@ class MoviesList extends React.Component {
 
   /* async */ getMovies = () => {
     //const _this = this
-    fetch(`${API_URL}/discover/movie?api_key=${API_KEY_3}&sort_by=${this.state.sort_by}&`).then(data => {
+    fetch(`${API_URL}/discover/movie?api_key=${API_KEY_3}&sort_by=${this.state.sort_by}&page=${this.state.page}`).then(data => {
       return data.json()
       //}).then(function(resp) {
     }).then(resp => {
       console.log(resp)
       this.setState({
+        total_pages: resp.total_pages,
         movies: resp.results
       })
     })
@@ -97,6 +101,28 @@ class MoviesList extends React.Component {
     });
   }
 
+  paginateBack = () => {
+    if (this.state.page > 1) {
+      this.setState(
+        (state, props) => {
+          return { page: --state.page }
+        },
+        () => this.getMovies()
+      )
+    }
+  }
+
+  paginateNext = () => {
+    if (this.state.page < this.state.total_pages) {
+      this.setState(
+        (state, props) => {
+          return { page: ++state.page }
+        },
+        () => this.getMovies()
+      )
+    }
+  }
+
   render() {
     console.log('App render')
     return (
@@ -125,12 +151,18 @@ class MoviesList extends React.Component {
                 );
               })}
             </div>
+            <Pagination
+              page={this.state.page}
+              total_pages={this.state.total_pages}
+              paginateBack={this.paginateBack}
+              paginateNext={this.paginateNext}
+            />
           </div>
           <div className="col-3">
             <p>Will watch: {this.state.moviesWillWatch.length}</p>
           </div>
         </div>
-      </div>
+      </div >
     );
   }
 }
