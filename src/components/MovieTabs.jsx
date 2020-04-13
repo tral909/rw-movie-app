@@ -1,5 +1,5 @@
-import React from "react"
-import cn from 'classnames'
+import React from "react";
+import cn from "classnames";
 
 class MovieTabs extends React.Component {
   componentWillReceiveProps(nextProps, nextState) {
@@ -19,20 +19,20 @@ class MovieTabs extends React.Component {
   render() {
     const { sort_by, updateSortBy } = this.props;
 
-    const handleClick = value => {
+    const handleClick = (value) => {
       return () => {
         updateSortBy(value);
       };
     };
 
-    const getClassLink = value => {
+    const getClassLink = (value) => {
       //return `nav-link ${sort_by === value ? "active" : ""}`;
 
       // или используем бииблиотеку classnames
-      return cn("nav-link", {"active": sort_by === value});
-    }
+      return cn("nav-link", { active: sort_by === value });
+    };
 
-    console.log("MovieTabs render")
+    console.log("MovieTabs render");
 
     return (
       <ul className="nav nav-pills">
@@ -43,7 +43,7 @@ class MovieTabs extends React.Component {
             href="#stub"
           >
             Popularity desc
-        </a>
+          </a>
         </li>
         <li className="nav-item">
           <a
@@ -52,22 +52,23 @@ class MovieTabs extends React.Component {
             href="#stub"
           >
             Revenue desc
-        </a>
+          </a>
         </li>
         <li className="nav-item">
           <a
             className={`nav-link ${
-              sort_by === "vote_average.desc" ? "active" : ""}`}
+              sort_by === "vote_average.desc" ? "active" : ""
+            }`}
             onClick={() => {
               updateSortBy("vote_average.desc");
             }}
             href="#stub"
           >
             Vote average desc
-        </a>
+          </a>
         </li>
       </ul>
-    )
+    );
   }
 }
 

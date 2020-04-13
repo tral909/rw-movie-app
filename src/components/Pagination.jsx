@@ -1,11 +1,7 @@
 import React from "react";
 
 export default function Pagination(props) {
-  const {
-    page,
-    total_pages,
-    paginateBack,
-    paginateNext} = props;
+  const { page, total_pages, paginateBack, paginateNext } = props;
 
   return (
     <div className="row mb-4 mt-4">
@@ -15,19 +11,13 @@ export default function Pagination(props) {
         </span>
       </div>
       <div className="col-6">
-        <button
-          className="btn btn-primary mr-2"
-          onClick={paginateBack}
-        >
+        <button className="btn btn-primary mr-2" onClick={paginateBack}>
           Back
         </button>
-        <button
-          className="btn btn-primary mr-2"
-          onClick={paginateNext}
-        >
+        <button className="btn btn-primary mr-2" onClick={paginateNext}>
           Next
         </button>
       </div>
     </div>
-  )
+  );
 }

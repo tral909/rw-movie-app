@@ -5,12 +5,17 @@ export default class MovieItem extends React.Component {
     super(props);
 
     this.state = {
-      willWatch: false
-    }
+      willWatch: false,
+    };
   }
 
   render() {
-    const { movie, removeMovie, addMovieToWillWatch, removeMovieFromWillWatch } = this.props;
+    const {
+      movie,
+      removeMovie,
+      addMovieToWillWatch,
+      removeMovieFromWillWatch,
+    } = this.props;
 
     return (
       <div className="card" style={{ width: "100%" }}>
@@ -18,7 +23,7 @@ export default class MovieItem extends React.Component {
           className="card-img-top card-img--height"
           src={`https://image.tmdb.org/t/p/w500${
             movie.backdrop_path || movie.poster_path
-            }`}
+          }`}
           alt=""
         />
         <div className="card-body">
@@ -31,7 +36,7 @@ export default class MovieItem extends React.Component {
                 className="btn btn-success"
                 onClick={() => {
                   this.setState({
-                    willWatch: false
+                    willWatch: false,
                   });
                   removeMovieFromWillWatch(movie);
                 }}
@@ -39,19 +44,19 @@ export default class MovieItem extends React.Component {
                 Remove Will Watch
               </button>
             ) : (
-                <button
-                  type="button"
-                  className="btn btn-secondary"
-                  onClick={() => {
-                    this.setState({
-                      willWatch: true
-                    });
-                    addMovieToWillWatch(movie);
-                  }}
-                >
-                  Add Will Watch
+              <button
+                type="button"
+                className="btn btn-secondary"
+                onClick={() => {
+                  this.setState({
+                    willWatch: true,
+                  });
+                  addMovieToWillWatch(movie);
+                }}
+              >
+                Add Will Watch
               </button>
-              )}
+            )}
           </div>
           <button onClick={removeMovie.bind(null, movie)}>Remove movie</button>
         </div>
@@ -59,4 +64,3 @@ export default class MovieItem extends React.Component {
     );
   }
 }
-
