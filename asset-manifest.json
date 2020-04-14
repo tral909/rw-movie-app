@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/rw-movie-app/static/css/main.79e7f76d.chunk.css",
+    "main.js": "/rw-movie-app/static/js/main.ccc468dc.chunk.js",
+    "main.js.map": "/rw-movie-app/static/js/main.ccc468dc.chunk.js.map",
+    "runtime~main.js": "/rw-movie-app/static/js/runtime~main.06f679bd.js",
+    "runtime~main.js.map": "/rw-movie-app/static/js/runtime~main.06f679bd.js.map",
+    "static/css/2.0161871a.chunk.css": "/rw-movie-app/static/css/2.0161871a.chunk.css",
+    "static/js/2.3e9b1fc8.chunk.js": "/rw-movie-app/static/js/2.3e9b1fc8.chunk.js",
+    "static/js/2.3e9b1fc8.chunk.js.map": "/rw-movie-app/static/js/2.3e9b1fc8.chunk.js.map",
+    "index.html": "/rw-movie-app/index.html",
+    "precache-manifest.dc00dde07f040de0fd4acc2f16756f7b.js": "/rw-movie-app/precache-manifest.dc00dde07f040de0fd4acc2f16756f7b.js",
+    "service-worker.js": "/rw-movie-app/service-worker.js",
+    "static/css/2.0161871a.chunk.css.map": "/rw-movie-app/static/css/2.0161871a.chunk.css.map",
+    "static/css/main.79e7f76d.chunk.css.map": "/rw-movie-app/static/css/main.79e7f76d.chunk.css.map"
+  }
+}
