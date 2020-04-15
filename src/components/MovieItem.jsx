@@ -58,7 +58,12 @@ export default class MovieItem extends React.Component {
               </button>
             )}
           </div>
-          <button onClick={removeMovie.bind(null, movie)}>Remove movie</button>
+          <button onClick={
+            function() {
+              removeMovieFromWillWatch(movie);
+              removeMovie(movie);
+            }}
+          >Remove movie</button>
         </div>
       </div>
     );
